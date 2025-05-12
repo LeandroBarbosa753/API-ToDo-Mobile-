@@ -1,0 +1,23 @@
+meta {
+  name: Store
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:3333/task
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: oat_MQ.eVJuUWRLUjg3cXpRbGtYbnc3N3JObTdjc29LX2JwdVRqRGU0XzhIcTI4NzM4ODIyNzM
+}
+
+body:json {
+  {
+    "title": "Estudar",
+    "description": "Estudar Python", "done":"false"
+    
+  }
+}

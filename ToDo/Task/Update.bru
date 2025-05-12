@@ -1,0 +1,22 @@
+meta {
+  name: Update
+  type: http
+  seq: 4
+}
+
+put {
+  url: http://localhost:3333/task/
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: oat_MQ.bGpoR1RIN2xsdm1zWFBvR2tyUkd2TDBkRDN3OFMyems3TWRpNVRucjE0NDU0NjM3NTQ
+}
+
+body:json {
+  {
+  
+    "status": "alugada"
+  }
+}

@@ -1,0 +1,15 @@
+meta {
+  name: Logout
+  type: http
+  seq: 2
+}
+
+delete {
+  url: http://localhost:3333/session
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: oat_MzY.LTlheE1DQ0YzSVM5UDBFNE90cjVzbzEwb2w0WWVXOGhIS25qYlZvMjIzMDYwNTA2NA
+}
