@@ -5,7 +5,7 @@ import type { HttpContext } from '@adonisjs/core/http'
 export default class TasksController {
   async index({ auth }: HttpContext) {
     const user = await auth.user!
-    await user.preload('tasks')
+    await user.load('tasks')
     return user.tasks
   }
   async store({ request, response, auth }: HttpContext) {
@@ -24,17 +24,18 @@ export default class TasksController {
   }
   async show({ params, response }: HttpContext) {
     try {
-      const task = await Task.findOrFail('id', params.id)
+      const task = await Task.findOrFail(params.id)
       return task
     } catch (error) {
-      return response.status(404).json({ error: 'Task not found' })
+      return response.status(400).json({ error: 'Task not found' })
     }
   }
   async update({ request, params, response }: HttpContext) {
     try {
-      const task = await Task.findOrFail('id', params.id)
       const { title, description, done } = await request.validateUsing(updateTaskValidator)
+      const task = await Task.findOrFail(params.id)
       task.merge({ title, description, done })
+      await task.save()
       return task
     } catch {
       return response.status(400).json({ error: 'Task not found' })
@@ -42,11 +43,11 @@ export default class TasksController {
   }
   async destroy({ params, response }: HttpContext) {
     try {
-      const task = await Task.findOrFail('id', params.id)
+      const task = await Task.findOrFail(params.id)
       await task.delete()
-      return response.status(204).json({ message: 'Task deleted' })
+      return response.status(204).send({ message: 'Task deleted' })
     } catch (error) {
-      return response.status(404).json({ error: 'Task not found' })
+      return response.status(400).json({ error: 'Task not found' })
     }
   }
 }
